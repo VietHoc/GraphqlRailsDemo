@@ -17,10 +17,21 @@ module Types
     field :items, 
     [Types::ItemType],
     null: false, 
-    description: "Return a list of items"
-  
-    def items
-      Item.all
+    description: "Return a list of items" do
+      argument :query, String, required: false
+    end
+    def items(query: nil)
+      return Item.all if query.nil?
+      Item.all.where("title LIKE ?", "%#{query}%")
     end 
+
+    field :item,
+    Types::ItemType,
+    "Find a item by ID" do
+      argument :id, ID
+    end
+    def item(id:)
+      Item.find(id)
+    end
   end
 end

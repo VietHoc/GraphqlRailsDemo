@@ -22,3 +22,33 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+
+Example query
+
+```
+query ItemList {
+  items {
+    id
+    title
+    description
+  }
+}
+
+query ItemListSearch($query: String) {
+  items(query: $query) {
+    id
+    title
+    description
+    artist {email}
+  }
+}
+
+query ItemDetail($id: ID!) {
+  item(id: $id) {
+    id
+    title
+    description
+  }
+}
+```
